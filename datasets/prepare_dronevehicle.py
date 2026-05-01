@@ -8,6 +8,7 @@ from collections import defaultdict
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
+from PIL import UnidentifiedImageError
 from tqdm import tqdm
 
 from datasets.prepare_llvip import prepare_llvip
@@ -197,8 +198,8 @@ def convert_dronevehicle(raw_dir: Path, output_root: Path) -> dict:
         xml_files = sorted(raw_dir.rglob("*.xml"))
         if not xml_files:
             raise FileNotFoundError(f"No DroneVehicle XML annotations found under {raw_dir}")
-        label_paths: dict[tuple[str, str, str], Path] = {}
         converted = 0
+        skipped_corrupt = 0
         for xml_path in tqdm(xml_files, desc="convert DroneVehicle"):
             modality = _modality_from_path(xml_path)
             if modality not in {"rgb", "ir"}:
@@ -207,7 +208,12 @@ def convert_dronevehicle(raw_dir: Path, output_root: Path) -> dict:
             image_path = _choose_image(image_index.get(xml_path.stem, {}).get(modality, []), split)
             if image_path is None:
                 continue
-            width, height = read_image_size(image_path)
+            try:
+                width, height = read_image_size(image_path)
+            except (UnidentifiedImageError, OSError) as exc:
+                skipped_corrupt += 1
+                LOGGER.warning("Skipping unreadable DroneVehicle image %s: %s", image_path, exc)
+                continue
             lines = []
             for class_id, box in _parse_dronevehicle_xml(xml_path, (width, height)):
                 line = yolo_line(class_id, box, width, height)
@@ -220,10 +226,11 @@ def convert_dronevehicle(raw_dir: Path, output_root: Path) -> dict:
             dst_label = root / "labels" / split / f"{image_path.stem}.txt"
             link_or_copy(image_path, dst_image)
             dst_label.write_text("\n".join(lines) + "\n", encoding="utf-8")
-            label_paths[(split, modality, image_path.stem)] = dst_label
             converted += 1
         if converted == 0:
             raise RuntimeError("DroneVehicle conversion produced zero labelled images")
+        if skipped_corrupt:
+            LOGGER.warning("Skipped %d unreadable DroneVehicle images during conversion", skipped_corrupt)
         pair_manifest = {"dataset": "DroneVehicle", "classes": DRONEVEHICLE_CLASSES, "train": [], "val": []}
         rgb_images = {p.stem: p for split in ("train", "val") for p in iter_images(rgb_root / "images" / split)}
         ir_images = {p.stem: p for split in ("train", "val") for p in iter_images(ir_root / "images" / split)}
@@ -299,4 +306,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

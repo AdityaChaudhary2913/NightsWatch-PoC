@@ -26,6 +26,11 @@ from utils.logger import get_logger, status
 LOGGER = get_logger(__name__)
 LLVIP_FILE_ID = "1ZM7As3u4MfcAvKWbS96RRdPFiAm9uiSG"
 LLVIP_CLASSES = ["pedestrian"]
+LLVIP_GDRIVE_URL = f"https://drive.google.com/uc?id={LLVIP_FILE_ID}"
+LLVIP_KAGGLE_SLUGS = [
+    "saurabhshahane/llvip-dataset",
+    "omkargurav/llvip",
+]
 
 
 def _run(cmd: list[str], cwd: Path | None = None) -> subprocess.CompletedProcess:
@@ -57,33 +62,28 @@ def _download_official(raw_dir: Path) -> None:
     except ImportError as exc:
         raise RuntimeError("gdown is required for the official LLVIP download") from exc
     LOGGER.info("Downloading LLVIP from Google Drive id=%s", LLVIP_FILE_ID)
-    result = gdown.download(id=LLVIP_FILE_ID, output=str(zip_path), quiet=False, fuzzy=True)
+    result = gdown.download(url=LLVIP_GDRIVE_URL, output=str(zip_path), quiet=False)
     if result is None or not zip_path.exists():
         raise RuntimeError("gdown did not produce the LLVIP archive")
 
 
 def _download_kaggle_fallback(raw_dir: Path) -> None:
-    slug = None
+    slugs = []
     env_slug = os.environ.get("LLVIP_KAGGLE_SLUG")
     if env_slug:
-        slug = env_slug
-    else:
+        slugs.append(env_slug)
+    slugs.extend(LLVIP_KAGGLE_SLUGS)
+
+    last_error: Exception | None = None
+    for slug in slugs:
         try:
-            result = _run(["kaggle", "datasets", "list", "-s", "LLVIP", "--csv"])
-            rows = list(csv.DictReader(result.stdout.splitlines()))
-            for row in rows:
-                ref = row.get("ref") or row.get("Ref")
-                if ref and "llvip" in ref.lower():
-                    slug = ref
-                    break
-            if slug is None and rows:
-                slug = rows[0].get("ref") or rows[0].get("Ref")
+            LOGGER.info("Downloading LLVIP Kaggle fallback: %s", slug)
+            _run(["kaggle", "datasets", "download", "-d", slug, "-p", str(raw_dir), "--unzip"])
+            return
         except Exception as exc:
-            raise RuntimeError("Kaggle LLVIP search failed") from exc
-    if not slug:
-        raise RuntimeError("No LLVIP Kaggle dataset slug found")
-    LOGGER.info("Downloading LLVIP Kaggle fallback: %s", slug)
-    _run(["kaggle", "datasets", "download", "-d", slug, "-p", str(raw_dir), "--unzip"])
+            last_error = exc
+            LOGGER.warning("LLVIP Kaggle download failed for %s: %s", slug, exc)
+    raise RuntimeError("No LLVIP Kaggle fallback download succeeded") from last_error
 
 
 def download_llvip(raw_dir: Path) -> None:
