@@ -98,6 +98,30 @@ def _modality_from_path(path: Path) -> str | None:
     text = "/".join(path.parts).lower()
     parts = {p.lower() for p in path.parts}
     if (
+        "trainimgr" in text
+        or "valimgr" in text
+        or "testimgr" in text
+        or "trainlabelr" in text
+        or "vallabelr" in text
+        or "testlabelr" in text
+    ):
+        return "ir"
+    if (
+        "trainimg/" in text
+        or "valimg/" in text
+        or "testimg/" in text
+        or text.endswith("/trainimg")
+        or text.endswith("/valimg")
+        or text.endswith("/testimg")
+        or "trainlabel/" in text
+        or "vallabel/" in text
+        or "testlabel/" in text
+        or text.endswith("/trainlabel")
+        or text.endswith("/vallabel")
+        or text.endswith("/testlabel")
+    ):
+        return "rgb"
+    if (
         "infrared" in parts
         or "thermal" in parts
         or "ir" in parts
@@ -112,8 +136,6 @@ def _modality_from_path(path: Path) -> str | None:
         or "visible" in parts
         or "vis" in parts
         or "color" in parts
-        or "labelr" in text
-        or "imgr" in text
         or "imager" in text
         or "image_rgb" in text
     ):
