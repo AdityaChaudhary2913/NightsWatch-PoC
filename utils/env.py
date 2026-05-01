@@ -8,7 +8,7 @@ def is_kaggle() -> bool:
 
 def get_base_dir() -> Path:
     if is_kaggle():
-        return Path("/kaggle/working/trinetra-poc")
+        return Path("/kaggle/working/NightsWatch")
     return Path(__file__).resolve().parent.parent
 
 
@@ -39,4 +39,3 @@ def get_model_dir() -> Path:
 
 def get_visualisation_dir() -> Path:
     return ensure_dir(get_output_dir() / "visualisations")
-

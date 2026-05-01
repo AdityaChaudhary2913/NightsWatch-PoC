@@ -240,7 +240,7 @@ def generate_report(output_dir: str | Path | None = None) -> Path:
     fusion_payload = _read_json(logs_dir / "fusion.json", {"table": []})
     benchmarks = benchmark_payload.get("benchmarks", [])
 
-    report = f"""# TRINETRA PoC — Preliminary Benchmark Results
+    report = f"""# Night's Watch PoC — Preliminary Benchmark Results
 
 ## 1. Hardware Environment
 
@@ -299,7 +299,7 @@ Measured GPU wattage during sustained inference loop. Jetson Orin NX TDP is conf
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Generate TRINETRA PoC Markdown report.")
+    parser = argparse.ArgumentParser(description="Generate Night's Watch PoC Markdown report.")
     parser.add_argument("--output-dir", type=Path, default=None)
     args = parser.parse_args()
     print(generate_report(args.output_dir))

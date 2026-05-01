@@ -1,2 +1,1 @@
-"""Detection visualisation helpers for TRINETRA PoC."""
-
+"""Detection visualisation helpers for the Night's Watch PoC."""

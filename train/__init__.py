@@ -1,2 +1,1 @@
-"""Training entry points for TRINETRA PoC."""
-
+"""Training entry points for the Night's Watch PoC."""

@@ -1,6 +1,6 @@
-# TRINETRA PoC
+# Night's Watch PoC
 
-TRINETRA PoC is a reproducible AI pipeline for preliminary autonomous target-detection benchmarking on public electro-optical and thermal datasets. The repository contains dataset preparation, YOLOv11 fine-tuning, latency profiling, late-fusion evaluation, detection visualisation, and a proposal-ready report generator. Local development is intentionally lightweight: write and validate code locally, then run the full GPU workflow in Kaggle through `run_all.ipynb`.
+Night's Watch PoC is a reproducible AI pipeline for preliminary autonomous target-detection benchmarking on public electro-optical and thermal datasets. The repository contains dataset preparation, YOLOv11 fine-tuning, latency profiling, late-fusion evaluation, detection visualisation, and a proposal-ready report generator. Local development is intentionally lightweight: write and validate code locally, then run the full GPU workflow in Kaggle through `run_all.ipynb`.
 
 ## Prerequisites
 
@@ -13,7 +13,7 @@ TRINETRA PoC is a reproducible AI pipeline for preliminary autonomous target-det
 ## Local Setup
 
 ```bash
-cd trinetra-poc
+cd NightsWatch
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
@@ -29,7 +29,7 @@ The dry run creates 10 synthetic YOLO-format images and trains for one epoch on 
 2. Open Kaggle, create a new notebook, and upload or import `run_all.ipynb`.
 3. In notebook settings, enable Internet.
 4. In notebook settings, enable GPU. Use 2x T4 when Kaggle offers it.
-5. Run all cells top to bottom. The notebook clones the GitHub repository into `/kaggle/working/trinetra-poc`, prepares datasets, trains models, benchmarks them, runs late fusion, saves visualisations, and generates `poc_report.md`.
+5. Run all cells top to bottom. The notebook clones the GitHub repository into `/kaggle/working/NightsWatch`, prepares datasets, trains models, benchmarks them, runs late fusion, saves visualisations, and generates `poc_report.md`.
 
 Kaggle notebook link once published: add the published Kaggle notebook URL here.
 
@@ -55,4 +55,3 @@ The final report is written to `/kaggle/working/poc_outputs/poc_report.md`.
 - `eval.fusion_baseline.run_late_fusion()`
 - `visualise.save_detections.save_detection_images()`
 - `report.generate_report.generate_report()`
-

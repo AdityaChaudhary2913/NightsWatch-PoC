@@ -6,7 +6,7 @@ from datetime import datetime
 _FORMAT = "%(asctime)s | %(levelname)s | %(name)s | %(message)s"
 
 
-def get_logger(name: str = "trinetra") -> logging.Logger:
+def get_logger(name: str = "nights_watch") -> logging.Logger:
     logger = logging.getLogger(name)
     if logger.handlers:
         return logger
@@ -27,4 +27,3 @@ def status(message: str, ok: bool = True) -> str:
 
 def timestamp() -> str:
     return datetime.utcnow().isoformat(timespec="seconds") + "Z"
-

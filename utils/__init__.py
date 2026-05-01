@@ -1,2 +1,1 @@
-"""Shared utilities for the TRINETRA PoC pipeline."""
-
+"""Shared utilities for the Night's Watch PoC pipeline."""

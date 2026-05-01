@@ -1,2 +1,1 @@
-"""Dataset preparation and verification utilities for TRINETRA PoC."""
-
+"""Dataset preparation and verification utilities for the Night's Watch PoC."""

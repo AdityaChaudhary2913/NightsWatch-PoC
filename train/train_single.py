@@ -56,8 +56,8 @@ def train_with_oom_retry(model_path, dataset_yaml, epochs, output_dir, run_name,
                 cache=False,
                 verbose=True,
             )
-            setattr(results, "trinetra_final_batch", batch)
-            setattr(results, "trinetra_device", "0,1")
+            setattr(results, "nights_watch_final_batch", batch)
+            setattr(results, "nights_watch_device", "0,1")
             return results
         except RuntimeError as e:
             if "out of memory" in str(e).lower():
@@ -109,8 +109,8 @@ def train_with_config(
                 cache=False,
                 verbose=True,
             )
-            setattr(results, "trinetra_final_batch", batch)
-            setattr(results, "trinetra_device", training_device)
+            setattr(results, "nights_watch_final_batch", batch)
+            setattr(results, "nights_watch_device", training_device)
             return results
         except RuntimeError as e:
             if "out of memory" in str(e).lower():
@@ -181,8 +181,8 @@ def run_training_job(
         patience=config.patience,
         device=config.device,
     )
-    final_batch = getattr(results, "trinetra_final_batch", config.initial_batch)
-    device = getattr(results, "trinetra_device", config.device)
+    final_batch = getattr(results, "nights_watch_final_batch", config.initial_batch)
+    device = getattr(results, "nights_watch_device", config.device)
     run_dir = output_dir / config.name
     metrics = _read_results_csv(run_dir)
     best_weights = _best_weights(run_dir)
@@ -212,7 +212,7 @@ def run_training_job(
             patience=config.patience,
             device=config.device,
         )
-        final_batch = getattr(extra_results, "trinetra_final_batch", final_batch)
+        final_batch = getattr(extra_results, "nights_watch_final_batch", final_batch)
         extra_run_dir = output_dir / extra_name
         extra_metrics = _read_results_csv(extra_run_dir)
         if extra_metrics.get("best_map50", 0.0) >= metrics.get("best_map50", 0.0):
@@ -279,7 +279,7 @@ def main() -> None:
     parser.add_argument("--dataset-yaml", type=Path, default=None)
     parser.add_argument("--model-path", default="yolo11s.pt")
     parser.add_argument("--epochs", type=int, default=30)
-    parser.add_argument("--run-name", default="trinetra_train")
+    parser.add_argument("--run-name", default="nights_watch_train")
     parser.add_argument("--output-dir", type=Path, default=None)
     parser.add_argument("--initial-batch", type=int, default=32)
     parser.add_argument("--device", default="0,1")
