@@ -1,0 +1,7 @@
+path: ../raw/llvip_vis
+train: images/train
+val: images/val
+nc: 1
+names:
+  - pedestrian
+
