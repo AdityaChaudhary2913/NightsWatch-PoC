@@ -1,6 +1,6 @@
 # Night's Watch PoC
 
-Night's Watch PoC is a reproducible AI pipeline for preliminary autonomous target-detection benchmarking on public electro-optical and thermal datasets. The repository contains dataset preparation, YOLOv11 fine-tuning, latency profiling, late-fusion evaluation, detection visualisation, and a proposal-ready report generator. Local development is intentionally lightweight: write and validate code locally, then run the full GPU workflow in a hosted notebook such as Modal through `run_all.ipynb`.
+Night's Watch PoC is a reproducible AI pipeline for preliminary autonomous target-detection benchmarking on public electro-optical and thermal datasets. The repository contains dataset preparation, YOLOv11 fine-tuning, latency profiling, late-fusion evaluation, detection visualisation, and a proposal-ready report generator. Local development is intentionally lightweight: write and validate code locally, then run the hosted workflow in Modal through split prep and training notebooks.
 
 ## Prerequisites
 
@@ -27,10 +27,13 @@ The dry run creates 10 synthetic YOLO-format images and trains for one epoch on 
 ## Modal Notebook Workflow
 
 1. Push this repository to GitHub.
-2. Open Modal Notebooks, create a new notebook, and upload or import `run_all.ipynb`.
-3. Attach the persistent volume at `/mnt/nightswatch-poc`.
-4. In notebook settings, enable Internet and choose a GPU. `L4 x1` is the recommended starting point.
-5. Run all cells top to bottom. The notebook clones the GitHub repository into `/mnt/nightswatch-poc/NightsWatch`, prepares datasets, trains models, benchmarks them, runs late fusion, saves visualisations, and generates `poc_report.md`.
+2. Open Modal Notebooks and attach the persistent volume at `/mnt/nightswatch-poc`.
+3. For dataset preparation, use `run_prep.ipynb` on a CPU-focused profile such as `2 CPU / 4-8 GiB RAM / no GPU`.
+4. For training and evaluation, use `run_train.ipynb` on the same mounted volume with a GPU profile such as `L4 x1 / 4 CPU / 16 GiB RAM`.
+5. Run `run_prep.ipynb` once to prepare datasets and write `/mnt/nightswatch-poc/poc_outputs/logs/prep_manifest.json`.
+6. Later, start a separate Modal notebook session with `run_train.ipynb`; it reads the prep manifest and begins training directly without rerunning dataset preparation.
+
+`run_all.ipynb` is still available if you want a single end-to-end notebook, but the split notebooks are the recommended Modal workflow.
 
 ## Downloading Outputs
 
@@ -54,3 +57,5 @@ The final report is written to `/mnt/nightswatch-poc/poc_outputs/poc_report.md`.
 - `eval.fusion_baseline.run_late_fusion()`
 - `visualise.save_detections.save_detection_images()`
 - `report.generate_report.generate_report()`
+- `run_prep.ipynb`
+- `run_train.ipynb`

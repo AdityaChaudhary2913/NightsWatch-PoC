@@ -27,7 +27,8 @@ def _measure_torch_latency(model, dummy: torch.Tensor, half: bool = False, runs:
     with torch.inference_mode():
         for _ in range(warmup):
             if half:
-                with torch.cuda.amp.autocast():
+                # torch.cuda.amp.autocast is deprecated; use torch.amp.autocast instead.
+                with torch.amp.autocast("cuda"):
                     model.predict(source=dummy, verbose=False)
             else:
                 model.predict(source=dummy, verbose=False)
@@ -36,7 +37,7 @@ def _measure_torch_latency(model, dummy: torch.Tensor, half: bool = False, runs:
         for _ in range(runs):
             t0 = time.perf_counter()
             if half:
-                with torch.cuda.amp.autocast():
+                with torch.amp.autocast("cuda"):
                     model.predict(source=dummy, verbose=False)
             else:
                 model.predict(source=dummy, verbose=False)
@@ -201,7 +202,8 @@ def benchmark_model(
     device = 0
     LOGGER.info("Running validation for %s", model_name)
     val_metrics = _extract_val_metrics(model_pt.val(data=str(dataset_yaml), imgsz=imgsz, device=device, split="val", verbose=False))
-    dummy = torch.randn(1, 3, imgsz, imgsz, device="cuda")
+    # Ultralytics expects tensor inputs in [0, 1]. Using randn() produces out-of-range values and triggers warnings.
+    dummy = torch.rand(1, 3, imgsz, imgsz, device="cuda", dtype=torch.float32)
     fp32_ms = _measure_torch_latency(model_pt, dummy, half=False)
     fp16_ms = _measure_torch_latency(model_pt, dummy, half=True)
     peak_gb = _measure_gpu_memory(model_pt, dummy)
@@ -253,4 +255,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
