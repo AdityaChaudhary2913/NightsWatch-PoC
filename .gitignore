@@ -1,5 +1,4 @@
 datasets/raw/
-poc_outputs/
 __pycache__/
 *.pt
 *.onnx

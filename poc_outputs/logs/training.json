@@ -1,0 +1,47 @@
+{
+  "thermal": {
+    "run_name": "flir_thermal_yolo11s",
+    "dataset_yaml": "/mnt/nightswatch-poc/poc_outputs/dataset_configs/flir_thermal.yaml",
+    "run_dir": "/mnt/nightswatch-poc/poc_outputs/training_runs/flir_thermal_yolo11s",
+    "best_weights": "/mnt/nightswatch-poc/poc_outputs/training_runs/flir_thermal_yolo11s/weights/best.pt",
+    "model_artifact": "/mnt/nightswatch-poc/poc_outputs/models/thermal_best.pt",
+    "final_batch": 32,
+    "device": "0",
+    "extended_training": false,
+    "best_epoch": 45,
+    "best_map50": 0.995,
+    "best_map50_95": 0.98853,
+    "precision": 0.99617,
+    "recall": 0.99875
+  },
+  "eo": {
+    "run_name": "eo_unimodal_yolo11s",
+    "dataset_yaml": "/mnt/nightswatch-poc/poc_outputs/dataset_configs/dronevehicle_rgb.yaml",
+    "run_dir": "/mnt/nightswatch-poc/poc_outputs/training_runs/eo_unimodal_yolo11s",
+    "best_weights": "/mnt/nightswatch-poc/poc_outputs/training_runs/eo_unimodal_yolo11s/weights/best.pt",
+    "model_artifact": "/mnt/nightswatch-poc/poc_outputs/models/eo_best.pt",
+    "final_batch": 32,
+    "device": "0",
+    "extended_training": false,
+    "best_epoch": 30,
+    "best_map50": 0.61446,
+    "best_map50_95": 0.42638,
+    "precision": 0.70732,
+    "recall": 0.61599
+  },
+  "ir": {
+    "run_name": "ir_unimodal_yolo11s",
+    "dataset_yaml": "/mnt/nightswatch-poc/poc_outputs/dataset_configs/dronevehicle_ir.yaml",
+    "run_dir": "/mnt/nightswatch-poc/poc_outputs/training_runs/ir_unimodal_yolo11s",
+    "best_weights": "/mnt/nightswatch-poc/poc_outputs/training_runs/ir_unimodal_yolo11s/weights/best.pt",
+    "model_artifact": "/mnt/nightswatch-poc/poc_outputs/models/ir_best.pt",
+    "final_batch": 32,
+    "device": "0",
+    "extended_training": false,
+    "best_epoch": 25,
+    "best_map50": 0.64584,
+    "best_map50_95": 0.47206,
+    "precision": 0.71454,
+    "recall": 0.64596
+  }
+}

@@ -2,6 +2,10 @@
 
 Night's Watch PoC is a reproducible AI pipeline for preliminary autonomous target-detection benchmarking on public electro-optical and thermal datasets. The repository contains dataset preparation, YOLOv11 fine-tuning, latency profiling, late-fusion evaluation, detection visualisation, and a proposal-ready report generator. Local development is intentionally lightweight: write and validate code locally, then run the hosted workflow in Modal through split prep and training notebooks.
 
+Reference repository: `https://github.com/AdityaChaudhary2913/NightsWatch-PoC`
+
+The PoC results are collected under `poc_outputs/`, including the benchmark report, structured logs, exported PyTorch/ONNX models, training curves, confusion matrices, fusion baseline results, and qualitative detection visualisations.
+
 ## Prerequisites
 
 - Python 3.10+

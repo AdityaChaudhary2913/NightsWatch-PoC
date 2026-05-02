@@ -1,0 +1,198 @@
+{
+  "hardware": {
+    "date": "2026-05-02T02:28:48Z",
+    "torch": "2.8.0+cu129",
+    "cuda": "12.9",
+    "gpu_count": 1,
+    "gpus": [
+      {
+        "index": 0,
+        "name": "NVIDIA L4",
+        "vram_gb": 23.65915136
+      }
+    ],
+    "ultralytics": "8.3.253"
+  },
+  "benchmarks": [
+    {
+      "model_name": "thermal_yolo11s",
+      "weights_path": "/mnt/nightswatch-poc/poc_outputs/models/thermal_best.pt",
+      "dataset_yaml": "/mnt/nightswatch-poc/poc_outputs/dataset_configs/flir_thermal.yaml",
+      "imgsz": 640,
+      "runs": 100,
+      "warmup_runs": 20,
+      "stabilisation_runs_dropped": 10,
+      "map50": 0.9949901951347292,
+      "map50_95": 0.9849950644915172,
+      "precision": 0.9969689360229353,
+      "recall": 0.9980908135061236,
+      "fp32_ms": 8.274145722195195,
+      "fp16_ms": 10.497231444363328,
+      "onnx_ms": 5.7754537778641355,
+      "onnx_provider": "CUDAExecutionProvider",
+      "projected_jetson_int8_ms": 8.085635289009788,
+      "projected_jetson_label": "Projected Jetson Orin NX INT8 (estimated \u2014 not measured on device)",
+      "peak_memory_gb": 0.180617216,
+      "onnx_path": "/mnt/nightswatch-poc/poc_outputs/models/thermal_best.onnx",
+      "power": {
+        "available": true,
+        "samples": [
+          [
+            51.34
+          ],
+          [
+            51.1
+          ],
+          [
+            48.64
+          ],
+          [
+            49.84
+          ],
+          [
+            49.94
+          ],
+          [
+            50.17
+          ],
+          [
+            49.95
+          ],
+          [
+            50.02
+          ],
+          [
+            49.52
+          ],
+          [
+            50.29
+          ]
+        ],
+        "mean_watts": 50.081,
+        "max_watts": 51.34,
+        "num_samples": 10
+      },
+      "timestamp": "2026-05-02T02:25:27Z"
+    },
+    {
+      "model_name": "eo_yolo11s",
+      "weights_path": "/mnt/nightswatch-poc/poc_outputs/models/eo_best.pt",
+      "dataset_yaml": "/mnt/nightswatch-poc/poc_outputs/dataset_configs/dronevehicle_rgb.yaml",
+      "imgsz": 640,
+      "runs": 100,
+      "warmup_runs": 20,
+      "stabilisation_runs_dropped": 10,
+      "map50": 0.6145180554913535,
+      "map50_95": 0.4269050290807312,
+      "precision": 0.7075759037655227,
+      "recall": 0.6159778045521206,
+      "fp32_ms": 7.930779255588681,
+      "fp16_ms": 10.490679999566055,
+      "onnx_ms": 6.351812533224195,
+      "onnx_provider": "CUDAExecutionProvider",
+      "projected_jetson_int8_ms": 8.892537546513873,
+      "projected_jetson_label": "Projected Jetson Orin NX INT8 (estimated \u2014 not measured on device)",
+      "peak_memory_gb": 0.149246976,
+      "onnx_path": "/mnt/nightswatch-poc/poc_outputs/models/eo_best.onnx",
+      "power": {
+        "available": true,
+        "samples": [
+          [
+            49.25
+          ],
+          [
+            52.94
+          ],
+          [
+            53.2
+          ],
+          [
+            53.45
+          ],
+          [
+            53.07
+          ],
+          [
+            54.31
+          ],
+          [
+            53.71
+          ],
+          [
+            53.78
+          ],
+          [
+            53.74
+          ],
+          [
+            53.51
+          ]
+        ],
+        "mean_watts": 53.096000000000004,
+        "max_watts": 54.31,
+        "num_samples": 10
+      },
+      "timestamp": "2026-05-02T02:27:06Z"
+    },
+    {
+      "model_name": "ir_yolo11s",
+      "weights_path": "/mnt/nightswatch-poc/poc_outputs/models/ir_best.pt",
+      "dataset_yaml": "/mnt/nightswatch-poc/poc_outputs/dataset_configs/dronevehicle_ir.yaml",
+      "imgsz": 640,
+      "runs": 100,
+      "warmup_runs": 20,
+      "stabilisation_runs_dropped": 10,
+      "map50": 0.6431699701698698,
+      "map50_95": 0.4740512357699063,
+      "precision": 0.7162884220470932,
+      "recall": 0.647407919043359,
+      "fp32_ms": 7.842285711214775,
+      "fp16_ms": 9.774830644568688,
+      "onnx_ms": 5.517485366403384,
+      "onnx_provider": "CUDAExecutionProvider",
+      "projected_jetson_int8_ms": 7.724479512964737,
+      "projected_jetson_label": "Projected Jetson Orin NX INT8 (estimated \u2014 not measured on device)",
+      "peak_memory_gb": 0.15016448,
+      "onnx_path": "/mnt/nightswatch-poc/poc_outputs/models/ir_best.onnx",
+      "power": {
+        "available": true,
+        "samples": [
+          [
+            50.1
+          ],
+          [
+            53.97
+          ],
+          [
+            54.84
+          ],
+          [
+            54.22
+          ],
+          [
+            53.92
+          ],
+          [
+            54.53
+          ],
+          [
+            55.0
+          ],
+          [
+            55.47
+          ],
+          [
+            55.64
+          ],
+          [
+            55.47
+          ]
+        ],
+        "mean_watts": 54.316,
+        "max_watts": 55.64,
+        "num_samples": 10
+      },
+      "timestamp": "2026-05-02T02:28:48Z"
+    }
+  ]
+}

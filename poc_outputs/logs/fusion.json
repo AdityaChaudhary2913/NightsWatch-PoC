@@ -1,0 +1,28 @@
+{
+  "label": "Late-fusion NMS baseline (not reliability-aware attention fusion \u2014 that is a Phase 2 deliverable)",
+  "dataset": "DroneVehicle",
+  "num_pairs": 8746,
+  "iou_threshold": 0.5,
+  "table": [
+    {
+      "modality": "EO only",
+      "map50": 0.5467661838720341,
+      "map50_95": 0.38255398291762505
+    },
+    {
+      "modality": "IR only",
+      "map50": 0.5086493107942072,
+      "map50_95": 0.33630137060353954
+    },
+    {
+      "modality": "Late fusion",
+      "map50": 0.5682166989486996,
+      "map50_95": 0.4003792483396459
+    },
+    {
+      "modality": "\u0394 vs best solo",
+      "map50": 0.02145051507666551,
+      "map50_95": 0.017825265422020842
+    }
+  ]
+}

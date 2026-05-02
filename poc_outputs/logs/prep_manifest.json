@@ -1,0 +1,84 @@
+{
+  "thermal_yaml": "/mnt/nightswatch-poc/poc_outputs/dataset_configs/flir_thermal.yaml",
+  "eo_yaml": "/mnt/nightswatch-poc/poc_outputs/dataset_configs/dronevehicle_rgb.yaml",
+  "ir_yaml": "/mnt/nightswatch-poc/poc_outputs/dataset_configs/dronevehicle_ir.yaml",
+  "pair_manifest": "/mnt/nightswatch-poc/datasets/dronevehicle_pairs.json",
+  "dataset_records": [
+    {
+      "dataset": "Thermal",
+      "root": "/__modal/volumes/vo-QETx2Tc26a4ifR18mnbMlL/datasets/flir_thermal",
+      "source": "unknown",
+      "num_classes": 5,
+      "classes": [
+        "person",
+        "bicycle",
+        "car",
+        "dog",
+        "other_vehicle"
+      ],
+      "train_images": 12026,
+      "val_images": 1360,
+      "train_labels": 12026,
+      "val_labels": 1360,
+      "empty_label_files": 0,
+      "invalid_labels": 0,
+      "sample_image_size": [
+        640,
+        512
+      ],
+      "ok": true
+    },
+    {
+      "dataset": "EO",
+      "root": "/__modal/volumes/vo-QETx2Tc26a4ifR18mnbMlL/datasets/dronevehicle_rgb",
+      "source": "unknown",
+      "num_classes": 5,
+      "classes": [
+        "car",
+        "truck",
+        "bus",
+        "van",
+        "freight_car"
+      ],
+      "train_images": 17467,
+      "val_images": 8746,
+      "train_labels": 17467,
+      "val_labels": 8746,
+      "empty_label_files": 0,
+      "invalid_labels": 0,
+      "sample_image_size": [
+        840,
+        712
+      ],
+      "ok": true
+    },
+    {
+      "dataset": "IR",
+      "root": "/__modal/volumes/vo-QETx2Tc26a4ifR18mnbMlL/datasets/dronevehicle_ir",
+      "source": "unknown",
+      "num_classes": 5,
+      "classes": [
+        "car",
+        "truck",
+        "bus",
+        "van",
+        "freight_car"
+      ],
+      "train_images": 17940,
+      "val_images": 8965,
+      "train_labels": 17940,
+      "val_labels": 8965,
+      "empty_label_files": 0,
+      "invalid_labels": 0,
+      "sample_image_size": [
+        840,
+        712
+      ],
+      "ok": true
+    }
+  ],
+  "sources": {
+    "thermal": "FLIR ADAS",
+    "paired": "DroneVehicle"
+  }
+}
